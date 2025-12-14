@@ -11,7 +11,9 @@ import com.seek.rpm.customer.dto.CustomerDTO;
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
+    int LIFE_EXPECTANCY_YEARS = 80;
 
+    @Mapping(target = "estimatedLifeEventDate", expression = "java(entity.getBirthDate().plusYears(LIFE_EXPECTANCY_YEARS))")
     CustomerDTO toDTO(Customer entity);
 
     @Mapping(target = "id", ignore = true)

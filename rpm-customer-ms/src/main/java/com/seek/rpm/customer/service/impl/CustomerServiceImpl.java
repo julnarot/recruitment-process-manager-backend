@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.seek.rpm.customer.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.dto.CustomerDTO;
+import com.seek.rpm.customer.dto.CustomerMetricsDTO;
 import com.seek.rpm.customer.mapper.CustomerMapper;
 import com.seek.rpm.customer.repository.CustomerRepository;
 import com.seek.rpm.customer.service.CustomerService;
@@ -29,6 +30,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO createCustomer(CustomerCreateDTO dto) {
         return mapper.toDTO(repository.save(mapper.createToEntity(dto)));
+    }
+
+    @Override
+    public CustomerMetricsDTO getMetrics() {
+        return repository.getCustomerMetrics();
     }
 
 }

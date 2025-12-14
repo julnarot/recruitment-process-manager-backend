@@ -13,6 +13,9 @@ public class CustomerDTO {
     private String firstName;
     private String lastName;
     private Integer age;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+    
+    private LocalDate estimatedLifeEventDate;
 }
