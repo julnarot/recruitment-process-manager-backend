@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: RPM Auth Microservice
+    
+security:
+  auth:
+    username: admin
+    password: $2a$12$ljxDdmOyw.xLcOjwXkUvzePxdhLqh7caP1hibQSyfD7wE6pOfSk0G
+# real pass: 123456
+
+jwt:
+  secret: my-super-secret-key-should-be-very-long-and-secure
