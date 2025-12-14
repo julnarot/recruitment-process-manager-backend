@@ -10,3 +10,11 @@ security:
 
 jwt:
   secret: my-super-secret-key-should-be-very-long-and-secure
+
+server:
+  port: 8081
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
