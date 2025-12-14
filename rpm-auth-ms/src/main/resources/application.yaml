@@ -1,7 +1,7 @@
 spring:
   application:
-    name: RPM Auth Microservice
-    
+    name: auth-service
+
 security:
   auth:
     username: admin
@@ -13,7 +13,7 @@ jwt:
 
 server:
   port: 8081
-  
+
 eureka:
   client:
     service-url:

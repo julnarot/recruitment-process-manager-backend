@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: rpm-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: customer-service
+              uri: lb://customer-service
+              predicates:
+                - Path=/customers/**
+              filters:
+                - StripPrefix=1
+
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
+          discovery:
+            locator:
+              enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+jwt:
+  secret: my-super-secret-key-should-be-very-long-and-secure

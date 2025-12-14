@@ -1,6 +1,6 @@
 spring:
   application:
-    name: RPM Customer Microservice
+    name: customer-service
   datasource:
     url: jdbc:mysql://localhost:3306/rpm_customer?useSSL=false&serverTimezone=UTC
     username: appuser
