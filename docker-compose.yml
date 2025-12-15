@@ -15,6 +15,51 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql_data:/var/lib/mysql
+  discovery:
+    build: ./rpm-discovery
+    image: rpm-discovery
+    environment:
+      SERVER_PORT: 9000
+    ports:
+      - "9000:9000"
+  gateway:
+    build: ./rpm-gateway
+    container_name: rpm-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery
+    environment:
+      SERVER_PORT: 8080
+      JWT_SECRET: my-super-secret-key-should-be-very-long-and-secure
+      EUREKA_URL: http://discovery:9000/eureka
+
+  auth-service:
+    build: ./rpm-auth-ms
+    container_name: rpm-auth
+    # ports:
+    #   - "8081:8080"
+    depends_on:
+      - discovery
+    environment:
+      SERVER_PORT: 8080
+      JWT_SECRET: my-super-secret-key-should-be-very-long-and-secure
+      EUREKA_URL: http://discovery:9000/eureka
+
+  customer-service:
+    build: ./rpm-customer-ms
+    container_name: rpm-customer
+    # ports:
+    #   - "8082:8080"
+    depends_on:
+      - discovery
+      - mysql
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:mysql://mysql:3306/rpm_customer
+      DB_USER: appuser
+      DB_PASSWORD: apppass
+      EUREKA_URL: http://discovery:9000/eureka
 
 volumes:
   mysql_data:

@@ -3,14 +3,14 @@ spring:
     name: RPM Discovery server
 
 server:
-  port: 9000
+  port: ${SERVER_PORT:9000}
   
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://localhost:9000/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
   server:
     enable-self-preservation: false
 

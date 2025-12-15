@@ -9,12 +9,12 @@ security:
 # real pass: 123456
 
 jwt:
-  secret: my-super-secret-key-should-be-very-long-and-secure
+  secret: ${JWT_SECRET:my-super-secret-key-should-be-very-long-and-secure}
 
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:9000/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka/}
