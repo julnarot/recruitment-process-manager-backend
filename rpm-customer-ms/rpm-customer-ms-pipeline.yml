@@ -1,0 +1,51 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - rpm-customer-ms/**
+
+variables:
+  dockerHubConnection: "dockerhub-rpm"
+  dockerHubUser: "rjotac"
+  imageName: "rpm-customer-ms"
+  mavenOpts: "-Dmaven.test.skip=true"
+
+stages:
+  - stage: CI
+    displayName: "Build & Push Auth Service"
+    jobs:
+      - job: BuildPush
+        pool:
+          vmImage: "ubuntu-latest"
+
+        steps:
+          - checkout: self
+            clean: true
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: "17"
+              jdkArchitectureOption: "x64"
+              jdkSourceOption: "PreInstalled"
+
+          - task: Maven@3
+            displayName: "Build rpm-customer-ms"
+            inputs:
+              mavenPomFile: "rpm-customer-ms/pom.xml"
+              goals: "clean package"
+              options: "$(mavenOpts)"
+              publishJUnitResults: false
+
+          - task: Docker@2
+            displayName: "Build & Push rpm-customer-ms image"
+            inputs:
+              command: buildAndPush
+              containerRegistry: "$(dockerHubConnection)"
+              repository: "$(dockerHubUser)/$(imageName)"
+              dockerfile: "rpm-customer-ms/Dockerfile"
+              buildContext: "rpm-customer-ms"
+              tags: |
+                latest
+                $(Build.BuildId)
