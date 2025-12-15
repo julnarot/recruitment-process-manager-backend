@@ -1,0 +1,45 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - rpm-auth-ms/**  
+
+
+resources:
+  repositories:
+    - repository: self
+
+variables:
+  dockerHubConnection: "dockerhub-pfm"
+  dockerHubUser: "rjotac"
+  mavenOpts: "-Dmaven.test.skip=true"
+
+stages:
+  - stage: CI
+    displayName: "Build & Push Docker Image"
+    jobs:
+      - job: BuildPush
+        displayName: "Build and Push Images"
+        pool:
+          vmImage: "ubuntu-latest"
+
+        steps:
+          - checkout: self
+            clean: true
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: "17"
+              jdkArchitectureOption: "x64"
+              jdkSourceOption: "PreInstalled"
+
+          - task: Maven@3
+            displayName: "Build Maven Multi-Module"
+            inputs:
+              mavenPomFile: "pom.xml"
+              goals: "clean package"
+              options: "$(mavenOpts)"
+              publishJUnitResults: false
+
