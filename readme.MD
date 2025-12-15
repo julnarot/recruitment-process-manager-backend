@@ -146,7 +146,7 @@ Si el token es inválido o no se envía, el Gateway responderá:
 
 Este repositorio incluye una colección de Postman con todos los endpoints configurados (Auth, Customers y Metrics).
 
-Puedes encontrarla en: `rpm-microservices.postman_collection.json`
+Puedes encontrarla en: `postman/PostmanCollection.zip`
 
-Solo impórtala en Postman y activa el entorno que deseas usar como `local` o `production` no olvide llaamr a al request `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable {{JWT}} con para usar los demas endpoints.
+Solo impórtala en Postman y activa el entorno que deseas usar como `local`(preferentemente) o `production` no olvide empezar con endpoint de inicio de sesion `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable {{JWT}} con el cual podra acceder a los demas endpoints.
 
