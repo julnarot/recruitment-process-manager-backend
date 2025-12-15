@@ -9,8 +9,8 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-    # service-url:
-    #   defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
   server:
     enable-self-preservation: false
 
