@@ -9,11 +9,11 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
+    # service-url:
+    #   defaultZone: ${EUREKA_URL:http://localhost:9000/eureka}
   server:
     enable-self-preservation: false
-    
+
     eviction-interval-timer-in-ms: 60000
     renewal-percent-threshold: 0.85
     response-cache-update-interval-ms: 60000
