@@ -5,6 +5,7 @@ trigger:
   paths:
     include:
       - rpm-discovery/**
+pr: none
 
 variables:
   dockerHubConnection: "dockerhub-rpm"

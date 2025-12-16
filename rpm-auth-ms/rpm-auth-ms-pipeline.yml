@@ -5,6 +5,7 @@ trigger:
   paths:
     include:
       - rpm-auth-ms/**
+pr: none
 
 variables:
   dockerHubConnection: "dockerhub-rpm"
