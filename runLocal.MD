@@ -13,9 +13,9 @@ cd rpm-discovery
 
 Por defecto:
 
-URL: http://localhost:9000
+URL: http://localhost:8761
 
-Eureka UI: http://localhost:9000
+Eureka UI: http://localhost:8761
 
 ### 2. Gateway Service
 cd rpm-gateway
@@ -27,7 +27,7 @@ cd rpm-gateway
 Variables de entorno recomendadas:
 ```bash
 export SERVER_PORT=8080
-export EUREKA_URL=http://localhost:9000/eureka
+export EUREKA_URL=http://localhost:8761/eureka
 export JWT_SECRET=my-super-secret-key
 
 ```
@@ -45,7 +45,7 @@ cd rpm-auth-ms
 Variables de entorno:
 ```bash
 export SERVER_PORT=8081
-export EUREKA_URL=http://localhost:9000/eureka
+export EUREKA_URL=http://localhost:8761/eureka
 export JWT_SECRET=my-super-secret-key
 
 ```
@@ -59,7 +59,7 @@ cd rpm-customer-ms
 Variables de entorno:
 ```bash
 export SERVER_PORT=8082
-export EUREKA_URL=http://localhost:9000/eureka
+export EUREKA_URL=http://localhost:8761/eureka
 export DB_URL=jdbc:mysql://localhost:3306/rpm_customer
 export DB_USER=appuser
 export DB_PASSWORD=apppass
@@ -68,7 +68,7 @@ export DB_PASSWORD=apppass
 ### 5. Verificación rápida
 
 Eureka Dashboard
-http://localhost:9000
+http://localhost:8761
 
 Gateway health
 http://localhost:8080/actuator/health
