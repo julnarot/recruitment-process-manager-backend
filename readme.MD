@@ -89,6 +89,7 @@ curl -H "Accept: application/json" http://localhost:8761/eureka/apps | jq '.appl
 
 Este repositorio incluye una colección de Postman con todos los endpoints configurados (Auth, Customers y Metrics).
 
+
 Puedes encontrarla en: `doc/postman/PostmanCollection.zip`
 
 Extraiga el contenido de PostmanCollection e importelos en su workspace Postman, active el entorno que deseas usar como `local`(preferentemente) o `production` no olvide empezar con endpoint de inicio de sesion `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable `JWT` requerido para acceder a los demas endpoints.
