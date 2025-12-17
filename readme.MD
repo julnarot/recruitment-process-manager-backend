@@ -2,26 +2,33 @@
 
 Este repositorio contiene un ecosistema de microservicios basado en Spring Boot, Spring Cloud Gateway, Eureka Discovery Server y JWT, diseñado para ejecutarse tanto en entorno local como en Docker.
 
-## Arquitectura
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Gateway
-    participant AuthService
-    participant CustomerService
+## Requisitos
 
-    Client->>Gateway: POST /auth/login
-    Gateway->>AuthService: Forward login request
-    AuthService-->>Gateway: JWT Token
-    Gateway-->>Client: JWT Token
+### Ejecución local
 
-    Client->>Gateway: GET /customers/**
-    Gateway->>Gateway: Validate JWT
-    Gateway->>CustomerService: Forward request with headers
-    CustomerService-->>Gateway: Response
-    Gateway-->>Client: Response
+- Java 17+
+- Maven
+- MySQL 8 (si no usas Docker para la DB)
+
+### Ejecución en Docker
+
+- Docker
+
+- Docker Compose
+
+## Levantar entorno local (Docker)
+
+### 1. Construir y levantar todo el ecosistema
+
+Desde la raíz del proyecto:
+
+```bash
+docker-compose up -d --build
 ```
+
+> [Levantar entorno local `mvnw`](doc/runLocal.MD)
+
 
 Servicios incluidos:
 
@@ -33,120 +40,60 @@ Servicios incluidos:
 | Discovery        | [http://localhost:9000](http://localhost:9000)                     |
 | MySQL            | localhost:3306                                                     |
 
-## Requisitos
 
-### Para ejecución local
 
-- Java 17+
-- Maven
-- MySQL 8 (si no usas Docker para la DB)
 
-### Para Docker
+## Revisar las instancias de microservicios registrados en eureka
+ use comando  curl para listar los servicios: `curl --location 'http://localhost:8761/eureka/apps'`
 
-- Docker
-
-- Docker Compose
-
-## Ejecución con Docker
-
-### 1. Construir y levantar todo el ecosistema
-
-Desde la raíz del proyecto:
-
+Ejemplo  visualizando nombre y estado de instancia en formato `json`
 ```bash
-docker-compose up -d --build
-```
+curl -H "Accept: application/json" http://localhost:8761/eureka/apps | jq '.applications.application[] | {name: .name, instances: [.instance[] | {id: .instanceId, status: .status}]}'
 
-### 3. Apagar el entorno
-
-```bash
-docker-compose down
-```
-
-Para eliminar volúmenes:
-
-```bash
-docker-compose down -v
-
-```
-
-> [local run](runLocal.MD)
-
-
-
-
-## Pruebas rápidas con curl
-
-Esta sección muestra cómo obtener un JWT desde el servicio de autenticación y cómo consumir los endpoints protegidos a través del API Gateway.
-
-### 1. Obtener token JWT
-
-Realiza el login contra el Gateway (que enruta al Auth Service):
-```bash
-curl --location 'http://localhost:8080/auth/login' \
---header 'Content-Type: application/json' \
---data '{
-  "username": "admin",
-  "password": "admin123"
-}'
-```
-
-Respuesta esperada:
-```bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3006  100  3006    0     0   358k      0 --:--:-- --:--:-- --:--:--  366k
 {
-  "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NTc2NTE3NywiZXhwIjoxNzY1NzY4Nzc3fQ.MOGGe6vxME1XviF4-r4MmqDdeLwRRDHvFjurzInIBK4"
+  "name": "CUSTOMER-SERVICE",
+  "instances": [
+    {
+      "id": "6092468a39da:customer-service:80",
+      "status": "UP"
+    }
+  ]
+}
+{
+  "name": "RPM-GATEWAY",
+  "instances": [
+    {
+      "id": "b7d245af9be0:rpm-gateway:8080",
+      "status": "UP"
+    }
+  ]
+}
+{
+  "name": "AUTH-SERVICE",
+  "instances": [
+    {
+      "id": "a949e541aad2:auth-service:80",
+      "status": "UP"
+    }
+  ]
 }
 ```
 
+> Para pruebas de funcionalidad completa revise la seccion [Pruebas de funcionalidad interna microservicios curl](doc/pruebas-endpoints-base.md)
 
-Guarda el valor del campo token, ya que será utilizado en las siguientes peticiones.
-
-### 2. Obtener lista de clientes (GET)
-```bash
-curl --location 'http://localhost:8080/customers' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NTc2NTE3NywiZXhwIjoxNzY1NzY4Nzc3fQ.MOGGe6vxME1XviF4-r4MmqDdeLwRRDHvFjurzInIBK4'
-```
-
-### 3. Crear un cliente (POST)
-```bash
-curl --location 'http://localhost:8080/customers' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NTc2NTE3NywiZXhwIjoxNzY1NzY4Nzc3fQ.MOGGe6vxME1XviF4-r4MmqDdeLwRRDHvFjurzInIBK4' \
---data '{
-  "firstName": "example",
-  "lastName": "test last name",
-  "age": 34,
-  "birthDate": "1991-07-19"
-}'
-
-```
-### 4. Consultar métricas del servicio Customer
-```bash
-curl --location 'http://localhost:8080/customers/metrics' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NTc2NTE3NywiZXhwIjoxNzY1NzY4Nzc3fQ.MOGGe6vxME1XviF4-r4MmqDdeLwRRDHvFjurzInIBK4'
-
-```
-⚠️ Notas importantes
-
-Todas las peticiones deben pasar por el Gateway (localhost:8080)
-
-Los microservicios no están expuestos directamente para consumo externo
-
-Si el token es inválido o no se envía, el Gateway responderá:
-```bash
-{
-  "status": 401,
-  "error": "UNAUTHORIZED",
-  "message": "Invalid or missing JWT token",
-  "path": "/customers/..."
-}
-```
 
 ### Postman Collection
 
 Este repositorio incluye una colección de Postman con todos los endpoints configurados (Auth, Customers y Metrics).
 
-Puedes encontrarla en: `postman/PostmanCollection.zip`
+Puedes encontrarla en: `doc/postman/PostmanCollection.zip`
 
-Solo impórtala en Postman y activa el entorno que deseas usar como `local`(preferentemente) o `production` no olvide empezar con endpoint de inicio de sesion `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable {{JWT}} con el cual podra acceder a los demas endpoints.
+Extraiga el contenido de PostmanCollection e importelos en su workspace Postman, active el entorno que deseas usar como `local`(preferentemente) o `production` no olvide empezar con endpoint de inicio de sesion `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable `JWT` requerido para acceder a los demas endpoints.
 
+## Notas pendientes
+
+- Implementar servicio protocolo AMQP para operacion del tipo mensajeria.
+- Configurar monitor de tráficos para microservicios: Grafana.
