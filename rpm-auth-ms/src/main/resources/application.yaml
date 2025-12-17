@@ -25,3 +25,7 @@ eureka:
     lease-expiration-duration-in-seconds: 90
     prefer-ip-address: false
     hostname: ${HOSTNAME:localhost}
+    non-secure-port: ${SERVER_PORT:8081}
+    secure-port-enabled: false
+    metadata-map:
+      management.port: ${SERVER_PORT:8081}
