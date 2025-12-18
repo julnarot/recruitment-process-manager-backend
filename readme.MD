@@ -93,8 +93,3 @@ Este repositorio incluye una colección de Postman con todos los endpoints confi
 Puedes encontrarla en: `doc/postman/PostmanCollection.zip`
 
 Extraiga el contenido de PostmanCollection e importelos en su workspace Postman, active el entorno que deseas usar como `local`(preferentemente) o `production` no olvide empezar con endpoint de inicio de sesion `/auth/login` atravez de la peticion `login` y este  automaticamente fijara variable `JWT` requerido para acceder a los demas endpoints.
-
-## Notas pendientes
-
-- Implementar servicio protocolo AMQP para operacion del tipo mensajeria.
-- Configurar monitor de tráficos para microservicios: Grafana.
