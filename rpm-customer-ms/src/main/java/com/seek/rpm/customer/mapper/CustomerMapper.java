@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.application.dto.CustomerDTO;
 import com.seek.rpm.customer.domain.Customer;
+import com.seek.rpm.customer.infrastructure.persistence.jpa.CustomerJpaEntity;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
@@ -18,4 +19,6 @@ public interface CustomerMapper {
 
     @Mapping(target = "id", ignore = true)
     Customer createToEntity(CustomerCreateDTO dto);
+
+    CustomerJpaEntity toJpaEntity(Customer customer);
 }

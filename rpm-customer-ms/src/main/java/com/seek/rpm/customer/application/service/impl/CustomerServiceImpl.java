@@ -8,6 +8,7 @@ import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.application.dto.CustomerDTO;
 import com.seek.rpm.customer.application.dto.CustomerMetricsDTO;
 import com.seek.rpm.customer.application.port.out.CustomerMetricsPort;
+import com.seek.rpm.customer.application.port.out.CustomerPersistencePort;
 import com.seek.rpm.customer.application.service.CustomerService;
 import com.seek.rpm.customer.mapper.CustomerMapper;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerMetricsPort metricsPort; // private final CustomerRepository repository;
+    private final CustomerPersistencePort persistencePort;
     private final CustomerMapper mapper;
 
     @Override
@@ -31,8 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Override
     public CustomerDTO createCustomer(CustomerCreateDTO dto) {
-        // TODO use own port and adapter
-        return mapper.toDTO(repository.save(mapper.createToEntity(dto)));
+        return mapper.toDTO(persistencePort.save(mapper.createToEntity(dto)));
     }
 
     @Override
