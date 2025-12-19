@@ -3,7 +3,7 @@ package com.seek.rpm.customer.validation;
 import java.time.LocalDate;
 import java.time.Period;
 
-import com.seek.rpm.customer.dto.CustomerCreateDTO;
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -9,7 +9,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.seek.rpm.customer.dto.CustomerCreateDTO;
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

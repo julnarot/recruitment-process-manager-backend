@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.dto;
+package com.seek.rpm.customer.application.dto;
 
 import java.time.LocalDateTime;
 

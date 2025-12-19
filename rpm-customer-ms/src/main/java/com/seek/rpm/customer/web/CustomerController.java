@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.controller;
+package com.seek.rpm.customer.web;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seek.rpm.customer.dto.CustomResponse;
-import com.seek.rpm.customer.dto.CustomerCreateDTO;
-import com.seek.rpm.customer.dto.CustomerDTO;
-import com.seek.rpm.customer.dto.CustomerMetricsDTO;
-import com.seek.rpm.customer.service.CustomerService;
+import com.seek.rpm.customer.application.dto.CustomResponse;
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
+import com.seek.rpm.customer.application.dto.CustomerDTO;
+import com.seek.rpm.customer.application.dto.CustomerMetricsDTO;
+import com.seek.rpm.customer.application.service.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

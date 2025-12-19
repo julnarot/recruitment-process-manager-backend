@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
+import com.seek.rpm.customer.application.dto.CustomerDTO;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.dto.CustomerCreateDTO;
-import com.seek.rpm.customer.dto.CustomerDTO;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {

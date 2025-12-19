@@ -13,9 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
+import com.seek.rpm.customer.application.dto.CustomerDTO;
+import com.seek.rpm.customer.application.service.impl.CustomerServiceImpl;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.dto.CustomerCreateDTO;
-import com.seek.rpm.customer.dto.CustomerDTO;
 import com.seek.rpm.customer.mapper.CustomerMapper;
 import com.seek.rpm.customer.repository.CustomerRepository;
 

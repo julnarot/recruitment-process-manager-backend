@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.dto;
+package com.seek.rpm.customer.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
