@@ -5,9 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.seek.rpm.customer.application.mapper.CustomerApplicationMapper;
 import com.seek.rpm.customer.application.port.out.CustomerRepositoryPort;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.mapper.CustomerMapper;
+import com.seek.rpm.customer.infrastructure.persistence.mapper.CustomerPersistenceMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,19 +17,20 @@ import lombok.RequiredArgsConstructor;
 public class CustomerJpaAdapter implements CustomerRepositoryPort {
 
     private final CustomerJpaRepository repository;
-    private final CustomerMapper mapper;
+    private final CustomerPersistenceMapper persistenceMapper;
+    private final CustomerApplicationMapper applicationMapper;
 
     @Override
     public Customer save(Customer customer) {
-        CustomerJpaEntity entity = mapper.toJpaEntity(customer);
+        CustomerJpaEntity entity = persistenceMapper.toJpaEntity(customer);
 
         CustomerJpaEntity saved = repository.save(entity);
 
-        return mapper.toDomain(saved);
+        return applicationMapper.toDomain(saved);
     }
 
     @Override
     public List<Customer> findAll() {
-        return repository.findAll().stream().map(mapper::toDomain).collect(Collectors.toList());
+        return repository.findAll().stream().map(applicationMapper::toDomain).collect(Collectors.toList());
     }
 }
