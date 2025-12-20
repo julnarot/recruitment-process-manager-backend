@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.application.dto.CustomerDTO;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.infrastructure.persistence.jpa.CustomerJpaEntity;
 
 @Mapper(componentModel = "spring")
 public interface CustomerApplicationMapper {
@@ -16,5 +16,6 @@ public interface CustomerApplicationMapper {
     @Mapping(target = "estimatedLifeEventDate", expression = "java(entity.getBirthDate().plusYears(LIFE_EXPECTANCY_YEARS))")
     CustomerDTO toDTO(Customer entity);
 
-    Customer toDomain(CustomerJpaEntity entity);
+    @Mapping(target = "id", ignore = true)
+    Customer toDomain(CustomerCreateDTO dto);
 }

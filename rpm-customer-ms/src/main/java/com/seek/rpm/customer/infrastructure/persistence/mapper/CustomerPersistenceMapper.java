@@ -14,4 +14,5 @@ public interface CustomerPersistenceMapper {
     Customer createToEntity(CustomerCreateDTO dto);
 
     CustomerJpaEntity toJpaEntity(Customer customer);
+    Customer toDomain(CustomerJpaEntity entity);
 }

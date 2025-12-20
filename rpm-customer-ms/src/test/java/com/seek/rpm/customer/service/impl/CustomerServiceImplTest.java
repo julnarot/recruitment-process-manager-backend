@@ -1,11 +1,9 @@
 package com.seek.rpm.customer.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,46 +13,40 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.application.dto.CustomerDTO;
+import com.seek.rpm.customer.application.mapper.CustomerApplicationMapper;
+import com.seek.rpm.customer.application.port.out.CustomerRepositoryPort;
 import com.seek.rpm.customer.application.service.impl.CustomerServiceImpl;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.mapper.CustomerMapper;
-import com.seek.rpm.customer.repository.CustomerRepository;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceImplTest {
 
     @Mock
-    private CustomerRepository repository;
+    private CustomerRepositoryPort customerRepositoryPort;
 
     @Mock
-    private CustomerMapper mapper;
+    private CustomerApplicationMapper applicationMapper;
 
     @InjectMocks
     private CustomerServiceImpl service;
 
     @Test
     void shouldCreateCustomerSuccessfully() {
-        CustomerCreateDTO dto = new CustomerCreateDTO();
-        dto.setFirstName("Juan");
-        dto.setAge(30);
-        dto.setBirthDate(LocalDate.now().minusYears(30));
 
-        Customer entity = new Customer();
+        CustomerCreateDTO dto = new CustomerCreateDTO();
+
+        Customer domain = new Customer();
         Customer saved = new Customer();
-        saved.setId(1L);
 
         CustomerDTO response = new CustomerDTO();
-        response.setFirstName("Juan");
 
-        when(mapper.createToEntity(dto)).thenReturn(entity);
-        when(repository.save(entity)).thenReturn(saved);
-        when(mapper.toDTO(saved)).thenReturn(response);
+        when(applicationMapper.toDomain(dto)).thenReturn(domain);
+        when(customerRepositoryPort.save(domain)).thenReturn(saved);
+        when(applicationMapper.toDTO(saved)).thenReturn(response);
 
         CustomerDTO result = service.createCustomer(dto);
 
         assertNotNull(result);
-        assertEquals(response.getFirstName(), "Juan");
-
-        verify(repository).save(entity);
+        verify(customerRepositoryPort).save(domain);
     }
 }
