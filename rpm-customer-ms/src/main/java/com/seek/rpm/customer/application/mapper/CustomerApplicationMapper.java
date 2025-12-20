@@ -1,26 +1,20 @@
-package com.seek.rpm.customer.mapper;
+package com.seek.rpm.customer.application.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import com.seek.rpm.customer.application.dto.CustomerCreateDTO;
 import com.seek.rpm.customer.application.dto.CustomerDTO;
 import com.seek.rpm.customer.domain.Customer;
 import com.seek.rpm.customer.infrastructure.persistence.jpa.CustomerJpaEntity;
 
 @Mapper(componentModel = "spring")
-public interface CustomerMapper {
-    CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
+public interface CustomerApplicationMapper {
+    CustomerApplicationMapper INSTANCE = Mappers.getMapper(CustomerApplicationMapper.class);
     int LIFE_EXPECTANCY_YEARS = 80;
 
     @Mapping(target = "estimatedLifeEventDate", expression = "java(entity.getBirthDate().plusYears(LIFE_EXPECTANCY_YEARS))")
     CustomerDTO toDTO(Customer entity);
-
-    @Mapping(target = "id", ignore = true)
-    Customer createToEntity(CustomerCreateDTO dto);
-
-    CustomerJpaEntity toJpaEntity(Customer customer);
 
     Customer toDomain(CustomerJpaEntity entity);
 }
