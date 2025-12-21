@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.web;
+package com.seek.rpm.customer.infrastructure.web;
 
 import java.time.LocalDateTime;
 import java.util.List;

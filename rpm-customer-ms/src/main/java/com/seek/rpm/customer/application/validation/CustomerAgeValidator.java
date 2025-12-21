@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.validation;
+package com.seek.rpm.customer.application.validation;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,7 +22,7 @@ public class CustomerAgeValidator
         LocalDate birthDate = dto.getBirthDate();
 
         if (age == null || birthDate == null) {
-            return true; // @NotNull lo maneja
+            return true;
         }
 
         if (age <= 0) {

@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.validation;
+package com.seek.rpm.customer.application.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

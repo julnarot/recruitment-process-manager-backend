@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.config;
+package com.seek.rpm.customer.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

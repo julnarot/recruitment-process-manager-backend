@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.exception;
+package com.seek.rpm.customer.infrastructure.web.exception;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

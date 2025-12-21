@@ -2,7 +2,7 @@ package com.seek.rpm.customer.application.dto;
 
 import java.time.LocalDate;
 
-import com.seek.rpm.customer.validation.ValidCustomerAge;
+import com.seek.rpm.customer.application.validation.ValidCustomerAge;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
