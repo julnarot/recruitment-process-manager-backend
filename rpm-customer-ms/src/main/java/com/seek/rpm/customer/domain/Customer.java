@@ -3,10 +3,8 @@ package com.seek.rpm.customer.domain;
 import java.time.LocalDate;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class Customer {
 
     private Long id;

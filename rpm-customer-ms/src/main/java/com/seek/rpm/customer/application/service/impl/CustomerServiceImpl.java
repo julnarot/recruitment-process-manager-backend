@@ -12,15 +12,16 @@ import com.seek.rpm.customer.application.port.out.CustomerMetricsPort;
 import com.seek.rpm.customer.application.port.out.CustomerRepositoryPort;
 import com.seek.rpm.customer.application.service.CustomerService;
 import com.seek.rpm.customer.domain.Customer;
-import com.seek.rpm.customer.infrastructure.persistence.mapper.CustomerPersistenceMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
+    
     private final CustomerMetricsPort metricsPort;
     private final CustomerRepositoryPort customerPort;
+
     private final CustomerApplicationMapper applicationMapper;
 
     @Override
