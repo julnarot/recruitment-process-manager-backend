@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.validation;
+package com.seek.rpm.customer.application.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

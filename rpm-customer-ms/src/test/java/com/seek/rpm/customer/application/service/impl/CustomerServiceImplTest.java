@@ -1,4 +1,4 @@
-package com.seek.rpm.customer.service.impl;
+package com.seek.rpm.customer.application.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
